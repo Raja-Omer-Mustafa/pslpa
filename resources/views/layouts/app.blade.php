@@ -108,7 +108,7 @@
                   
                     <nav id="responsive-menu" class="menu-centered">
                         <ul class="menu vertical medium-horizontal" data-responsive-menu="accordion medium-dropdown">
-                             <li class="single-sub parent-nav"><a href="/home">Home</a></li>
+                             <li class="single-sub parent-nav"><a href="/">Home</a></li>
                              <li class="single-sub parent-nav"><a href="/about">About us</a></li>
 							 <li class="single-sub parent-nav"><a href="/board-members">Board Members</a></li>
 							 <li class="single-sub parent-nav"><a href="/gallery">Gallery</a></li>
