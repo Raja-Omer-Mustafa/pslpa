@@ -13,24 +13,24 @@ return new class extends Migration
     {
         Schema::create('reg_form', function (Blueprint $table) {
             $table->id();
-            $table->string('name',30);
-            $table->string('father_name',30);
+            $table->string('name');
+            $table->string('father_name');
             $table->string('cnic_no')->unique();
-            $table->string('city',20);
-            $table->string('prof_qualification',30);
-            $table->string('year_qualification',30);
+            $table->string('city');
+            $table->string('prof_qualification');
+            $table->string('year_qualification');
             $table->string('mobile_no')->unique();
-            $table->string('landline_no',30);
-            $table->string('residential_address',40);
-            $table->string('official_address',40);
+            $table->string('landline_no');
+            $table->string('residential_address');
+            $table->string('official_address');
             $table->string('email_id')->unique();
-            $table->string('mem_cetag',30);
-            $table->string('fee_schedule',30);
-            $table->string('submission_date',20);
-            $table->string('cnic_copy',30);
-            $table->string('photo',30);
-            $table->string('fee',30);
-            $table->string('doc',30);
+            $table->string('mem_cetag');
+            $table->string('fee_schedule');
+            $table->string('submission_date');
+            $table->string('cnic_copy');
+            $table->string('photo');
+            $table->string('fee');
+            $table->string('doc');
             $table->timestamps();
         });
     }

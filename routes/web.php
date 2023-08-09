@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RegMemberController;
+use App\Models\RegMemebers;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,6 +36,35 @@ Route::get('/country-directory', function () {
 
 Route::post('/reg_form',[RegMemberController::class, 'store'])->name('reg_form');
 
-Route::get('/admin/index', function () {
-    return view('backend.layout.login');
+
+// Admin side routes
+
+Route::get('/admin/dashboard', function () {
+    return view('backend.home');
 });
+
+Route::get('/admin/online-registration',[RegMemberController::class, 'reg_form_data']);
+
+Route::get('/admin/reg_form', function () {
+    return view('backend.reg_members_form');
+});
+
+Route::get('/admin/online_reg_form', function () {
+    return view('backend.online_reg_form');
+});
+
+Route::get('/admin/login', function () {
+    return view('backend.login');
+});
+
+Route::get('/admin/registered-members',[RegMemberController::class, 'members_data']);
+
+Route::post('/admin/register-member',[RegMemberController::class, 'register_member']);
+Route::post('/admin/online_reg_form',[RegMemberController::class, 'store'])->name('reg_form');
+Route::get('/admin/update_register_member/{id}',[RegMemberController::class, 'get_member']);
+Route::post('/admin/update_register_member/{id}',[RegMemberController::class,'update_member']);
+Route::get('/admin/delete_register_member/{id}',[RegMemberController::class,'delete_member']);
+
+Route::get('/admin/update_online_registration_member/{id}',[RegMemberController::class, 'get_online_register_member']);
+Route::post('/admin/update_online_registration_member/{id}',[RegMemberController::class,'update_online_register_member']);
+Route::get('/admin/delete_online_registration_member/{id}',[RegMemberController::class,'delete_online_register_member']);

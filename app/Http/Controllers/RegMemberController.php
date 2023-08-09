@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\RegForm;
+use App\Models\RegMemebers;
 use Illuminate\Http\Request;
 
 class RegMemberController extends Controller
 {
     function store(Request $request)
     {
-        // dd($request->cnic_no);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'father_name' => 'required|string|max:255',
@@ -23,7 +23,7 @@ class RegMemberController extends Controller
             'official_address' => 'required|string|max:1000',
             'email_id' => 'required|email|max:255|unique:reg_form',
             'mem_cetag' => 'required',
-            'fee_schedule' => 'required',
+            'fee_schedule' => 'required|max:255',
             'submission_date' => 'required',
             'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'cnic_copy' => 'required|file|mimes:pdf,jpeg,png,jpeg,word|max:2048',
@@ -42,7 +42,7 @@ class RegMemberController extends Controller
 
         $docFile = $validatedData['doc'];
         $docPath = 'documents/' . $docFile->getClientOriginalName();
-        $docFile->storeAs('public',$docFile);
+        $docFile->storeAs('public',$docPath);
         
         $feeFile = $validatedData['fee'];
         $feePath = 'documents/' . $feeFile->getClientOriginalName();
@@ -71,5 +71,78 @@ class RegMemberController extends Controller
         $regForm->save();
 
         return redirect()->back()->with('success', 'Registration form submitted successfully!');
+    }
+
+    function members_data(){
+        $data = RegMemebers::paginate(15);
+        return view('backend.register_members_page', compact('data'));
+    }
+
+    function reg_form_data(){
+        $details = RegForm::paginate(15);
+        return view('backend.online_registration_page', compact('details'));
+    }
+
+    public function register_member(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'affiliation' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'status' => 'required',
+           
+        ]);
+
+
+        $regForm = new RegMemebers();
+        $regForm->name = $validatedData['name'];
+        $regForm->affiliation = $validatedData['affiliation'];
+        $regForm->city = $validatedData['city'];
+        $regForm->status = $validatedData['status'];
+        $regForm->save();
+
+        return redirect()->back()->with('success', 'Member Registered Successfully!');
+    }
+
+   public function get_member($id) 
+    {
+        $data = RegMemebers::where('id',$id)->first();
+        return view('backend.update_register_members',['data'=>$data]);
+    }
+
+    public function update_member(Request $request, $id)
+    {
+        $member = RegMemebers::find($id);
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'affiliation' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'status' => 'required',
+           
+        ]);
+        if($member){
+            $member->name =  $validatedData['name'];
+            $member->affiliation = $validatedData['affiliation'];
+            $member->city = $validatedData['city'];
+            $member->status = $validatedData['status'];
+            $member->save();
+
+            return back()->with('success', 'Member updated successfully!');
+        }
+        else{
+            return back()->with('error', 'Member did not found!');
+        }
+        
+    }
+
+    public function delete_member($id){
+        $member = RegMemebers::where('id',$id)->first();
+        if ($member) {
+            $member->delete();
+            return back()->with('success', 'Member deleted successfully!');
+        } else {
+            return back()->with('error', 'Member not found.');
+        }
     }
 }
