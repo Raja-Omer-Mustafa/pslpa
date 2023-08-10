@@ -186,8 +186,8 @@
 </div>
 <!-- Welcome Message Ends /-->
 
-<div class="embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" src="https://pslpa.org/videos/nirm.mp4" allowfullscreen></iframe>
+<div>
+    <iframe style="height:100vh;" src="https://pslpa.org/videos/nirm.mp4" allowfullscreen></iframe>
 </div>
 
 <!-- Blog Posts -->
