@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Be_A_MemberMail;
 use App\Models\RegForm;
 use App\Models\RegMemebers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class RegMemberController extends Controller
@@ -71,7 +73,14 @@ class RegMemberController extends Controller
         $regForm->doc = $docPath;
         $regForm->fee = $feePath;
         $regForm->save();
-
+        
+        $mailData = [
+            'title' => 'Mail from PSLPA',
+            'body' => ''
+        ];
+         
+        Mail::to($validatedData['email_id'])->send(new Be_A_MemberMail($mailData));
+           
         return redirect()->back()->with('success', 'Registration form submitted successfully!');
     }
 
@@ -276,4 +285,6 @@ class RegMemberController extends Controller
         $data = RegMemebers::where('id',$id)->first();
         return view('backend.register_members_view_button_page',['data'=>$data]);
     }
+
+    
 }
