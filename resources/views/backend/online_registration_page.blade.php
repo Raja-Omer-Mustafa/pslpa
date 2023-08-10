@@ -52,6 +52,7 @@
                                     <th scope="col">Email</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
+                                    <th scope="col"></th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -63,14 +64,18 @@
                                         <td>{{ $item->city }}</td>
                                         <td>{{ $item->mobile_no }}</td>
                                         <td>{{ $item->email_id }}</td>
-                                        <td><a role="button" href="{{ url('/admin/update_online_registration_member/'.$item->id) }}" class="btn btn-primary btn-sm">Update</a></td>
-                                        <td><a role="button" href="{{ url('/admin/update_online_registration_member/'.$item->id) }}" class="btn btn-danger btn-sm">Delete</a></td>
+                                        <td class="px-0"><a role="button" href="{{ url('/admin/update_online_registration_member/'.$item->id) }}" class="btn btn-primary btn-sm">Update</a></td>
+                                        <td class="px-0"><a role="button" href="{{ url('/admin/delete_online_registration_member/'.$item->id) }}" class="btn btn-danger btn-sm ">Delete</a></td>
+                                        <td class="px-0"><a role="button" href="{{ url('/admin/online-registration_view_on_button/'.$item->id) }}" class="btn btn-info btn-sm">View</a></td>
                                     </tr>
                                   @endforeach
                                 </tbody>
                               </table>
                         </div>                                    
                     </div>
+                    <center class="mt-4 ml-3">
+                        {{ $details->links() }}
+                    </center>
                 </div>
             </div>
         </div>

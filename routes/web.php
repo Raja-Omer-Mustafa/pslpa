@@ -68,3 +68,5 @@ Route::get('/admin/delete_register_member/{id}',[RegMemberController::class,'del
 Route::get('/admin/update_online_registration_member/{id}',[RegMemberController::class, 'get_online_register_member']);
 Route::post('/admin/update_online_registration_member/{id}',[RegMemberController::class,'update_online_register_member']);
 Route::get('/admin/delete_online_registration_member/{id}',[RegMemberController::class,'delete_online_register_member']);
+Route::get('/admin/online-registration_view_on_button/{id}',[RegMemberController::class, 'data_for_online_registration_view_button']);
+Route::get('/admin/register_members_view_on_button/{id}',[RegMemberController::class, 'data_for_register_members_view_button']);

@@ -47,7 +47,17 @@
                         <div class="medium-6 small-12 columns">
                             <label>
                                 Your Name *
-                                <input class="form-control" type="text" placeholder="Name" id="pwd" name="name" type="text" data-fv-notempty="true" data-fv-notempty-message="The name is required">
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Name"
+                                    id="pwd"
+                                    name="name"
+                                    type="text"
+                                    data-fv-notempty="true"
+                                    data-fv-notempty-message="The name is required"
+                                    value="{{ old('name') }}"
+                                >
                                 @error('name')
                                  <div class="error" style="color:rgb(229, 62, 62);margin:-10px 0px -10px 0px;">{{ $message }}</div>
                                 @enderror

@@ -61,7 +61,11 @@
                                 </div>
                                   <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Status</label>
-                                    <input type="number" class="form-control" min="0" max="1" step="0" name="status">
+                                    {{-- <input type="number" class="form-control" min="0" max="1" step="0" name="status"> --}}
+                                    <select class="form-control" name="status">
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
                                     @error('status')
                                     <div class="error" style="color:rgb(229, 62, 62);">{{ $message }}</div>
                                     @enderror
