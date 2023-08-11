@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard 3</title>
+  <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+  <title>Admin Dashboard </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -35,17 +36,23 @@
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+              </li>
+            </ul>
         </aside>
         <!-- /.control-sidebar -->
  
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+            <strong>Copyright &copy; 2020-2021 <a href="https://adminlte.io">Rand Enterprises(Private)Limited</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.2.0
+              <b>Version</b> 3.2.0
             </div>
-        </footer>
+          </footer>
+        </div>
     </div>
     <!-- ./wrapper -->
 
