@@ -60,6 +60,7 @@
                                     <th scope="col">Affiliation</th>
                                     <th scope="col">City</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Verification No.</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
@@ -73,6 +74,7 @@
                                     <td>{{ $item->affiliation }}</td>
                                     <td>{{ $item->city }}</td>
                                     <td>{{ $item->status }}</td>
+                                    <td>{{ $item->verification_code }}</td>
                                     <td>
                                       <a class="btn btn-primary btn-sm" href="{{ url('/admin/update_register_member/'.$item->id) }}" role="button">Update</a>
                                     </td>

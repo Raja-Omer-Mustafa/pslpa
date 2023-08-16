@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css')}}" media="all" />
     <link rel="stylesheet" type="text/css" href="{{ asset('lib/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('lib/css/settings.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/searchBar.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('lib/css/layers.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('lib/css/navigation.css')}}">
     
@@ -113,7 +114,7 @@
 							 <li class="single-sub parent-nav"><a href="/board-members">Board Members</a></li>
 							 <li class="single-sub parent-nav"><a href="/gallery">Gallery</a></li>
 							 <li class="single-sub parent-nav"><a href="be-a-member">Be a Member</a></li>
-							 <li class="single-sub parent-nav"><a href="/country-directory">Country Directory</a></li>
+							 <li class="single-sub parent-nav"><a href="/search-country-directory">Country Directory</a></li>
 							 <li class="single-sub parent-nav"><a href="https://blueeconomynews.com/2023/03/26/international-opportunities-for-speech-language-pathologists-therapists/">What's New !</a></li>
                         </ul>
                 	</nav>

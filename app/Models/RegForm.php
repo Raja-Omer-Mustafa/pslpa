@@ -30,6 +30,7 @@ class RegForm extends Model
         'cnic_copy',
         'doc',
         'fee',
+        'affiliation',
     ];
 
 }

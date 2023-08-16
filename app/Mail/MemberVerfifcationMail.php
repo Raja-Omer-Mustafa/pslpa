@@ -9,16 +9,16 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Be_A_MemberMail extends Mailable
+class MemberVerfifcationMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $mailData;
+    public $details;
     /**
      * Create a new message instance.
      */
-    public function __construct($mailData)
+    public function __construct($details)
     {
-        $this->mailData = $mailData;
+        $this->details = $details;
     }
 
     /**
@@ -27,7 +27,7 @@ class Be_A_MemberMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Thanks for becoming member',
+            subject: 'Member Verfifcation Email',
         );
     }
 
@@ -37,7 +37,7 @@ class Be_A_MemberMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.be_a_member_mail',
+            markdown: 'mail.memberVerification',
         );
     }
 

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\Be_A_MemberMail;
 use App\Models\RegForm;
-use App\Models\RegMemebers;
+use App\Mail\MemberMail;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Jobs\SendVerificationEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,6 +33,7 @@ class RegMemberController extends Controller
             'cnic_copy' => 'required|file|mimes:pdf,jpeg,png,jpeg,word|max:2048',
             'doc' => 'required|file|mimes:pdf,doc,docx,|max:2048',
             'fee' => 'required|mimes:pdf,doc,docx,jpeg,png,jpg|max:2048',
+            'affiliation'=> 'required|max:255|string'
         ]);
        
         // Process and store uploaded files
@@ -54,6 +55,7 @@ class RegMemberController extends Controller
 
 
         $regForm = new RegForm();
+        $regForm->verification_code = rand(1000000, 9999999);
         $regForm->name = $validatedData['name'];
         $regForm->father_name = $validatedData['father_name'];
         $regForm->cnic_no = $validatedData['cnic_no'];
@@ -72,26 +74,54 @@ class RegMemberController extends Controller
         $regForm->cnic_copy = $cnicCopyPath;
         $regForm->doc = $docPath;
         $regForm->fee = $feePath;
+        $regForm->affiliation = $validatedData['affiliation'];
         $regForm->save();
         
         $mailData = [
             'title' => 'Mail from PSLPA',
-            'body' => ''
+            'name'  => $validatedData['name'],
+            'cnic_no'  => $validatedData['cnic_no'],
+            'mobile_no'  => $validatedData['mobile_no'],
+            'mem_cetag'  => $validatedData['mem_cetag'],
+            'city'  => $validatedData['city'],
+            'fee_schedule'  => $validatedData['fee_schedule'],
         ];
          
-        Mail::to($validatedData['email_id'])->send(new Be_A_MemberMail($mailData));
+        Mail::to($validatedData['email_id'])->send(new MemberMail($mailData));
            
         return redirect()->back()->with('success', 'Registration form submitted successfully!');
     }
 
     function members_data(){
-        $data = RegMemebers::paginate(15);
+        $data = RegForm::where('status',1)->orderBy('created_at','desc')->paginate(10);
         return view('backend.register_members_page', compact('data'));
     }
 
     function reg_form_data(){
-        $details = RegForm::paginate(15);
+        $details = RegForm::where('status',0)->orderBy('created_at', 'desc')->paginate(15);
         return view('backend.online_registration_page', compact('details'));
+    }
+
+    // function RegForm_Data_Frontend(){
+    //     $details = RegForm::where('status','1')->paginate(5);
+    //     return view('country_directory', compact('details'));
+    // }
+
+    function search_regForm_data(Request $request){
+        $searchQuery = $request->input('search');
+        $query = RegForm::query();
+        
+        $query->where(function ($q) use ($searchQuery) {
+            $q->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($searchQuery) . '%'])
+              ->orWhereRaw('LOWER(city) LIKE ?', ['%' . strtolower($searchQuery) . '%'])
+              ->orWhere('status', 'like', '%' . $searchQuery . '%');
+        });
+        
+        
+        $details = $query->where('status',1)->orderBy('created_at','desc')->paginate(10);
+
+        return view('country_directory', compact('details'));
+
     }
 
     public function register_member(Request $request)
@@ -106,7 +136,7 @@ class RegMemberController extends Controller
         ]);
 
 
-        $regForm = new RegMemebers();
+        $regForm = new RegForm();
         $regForm->name = $validatedData['name'];
         $regForm->affiliation = $validatedData['affiliation'];
         $regForm->city = $validatedData['city'];
@@ -118,25 +148,29 @@ class RegMemberController extends Controller
 
    public function get_member($id) 
     {
-        $data = RegMemebers::where('id',$id)->first();
+        $data = RegForm::where('id',$id)->orderBy('created_at','desc')->first();
         return view('backend.update_register_members',['data'=>$data]);
     }
 
     public function update_member(Request $request, $id)
     {
-        $member = RegMemebers::find($id);
+        $member = RegForm::find($id);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'affiliation' => 'required|string|max:255',
+            'affiliation' => 'string|max:255',
             'city' => 'required|string|max:255',
             'status' => 'required',
            
         ]);
+        
         if($member){
             $member->name =  $validatedData['name'];
             $member->affiliation = $validatedData['affiliation'];
             $member->city = $validatedData['city'];
             $member->status = $validatedData['status'];
+            if($request->status == 0){
+                $member->verification_code = null;
+            }
             $member->save();
 
             return back()->with('success', 'Member updated successfully!');
@@ -148,7 +182,7 @@ class RegMemberController extends Controller
     }
 
     public function delete_member($id){
-        $member = RegMemebers::where('id',$id)->first();
+        $member = RegForm::where('id',$id)->first();
         if ($member) {
             $member->delete();
             return back()->with('success', 'Member deleted successfully!');
@@ -159,7 +193,7 @@ class RegMemberController extends Controller
 
     public function get_online_register_member($id) 
     {
-        $data = RegForm::where('id',$id)->first();
+        $data = RegForm::where('id',$id)->orderBy('created_at', 'desc')->first();
         return view('backend.update_online_registration_member',['data'=>$data]);
     }
 
@@ -202,6 +236,7 @@ class RegMemberController extends Controller
             'cnic_copy' => 'required|file|mimes:pdf,jpeg,png,jpeg,word|max:2048',
             'doc' => 'required|file|mimes:pdf,doc,docx,|max:2048',
             'fee' => 'required|mimes:pdf,doc,docx,jpeg,png,jpg|max:2048',
+            'affiliation' => 'required|string|max:255',
         ]);
 
         if ($request->hasFile('photo')) {
@@ -258,6 +293,7 @@ class RegMemberController extends Controller
         $member->mem_cetag = $validatedData['mem_cetag'];
         $member->fee_schedule = $validatedData['fee_schedule'];
         $member->submission_date = $validatedData['submission_date'];
+        $member->affiliation = $validatedData['affiliation'];
         $member->photo = $photoPath;
         $member->cnic_copy = $cnicCopyPath;
         $member->doc = $docPath;
@@ -282,8 +318,21 @@ class RegMemberController extends Controller
     }
 
     function data_for_register_members_view_button($id){
-        $data = RegMemebers::where('id',$id)->first();
+        $data = RegForm::where('id',$id)->first();
         return view('backend.register_members_view_button_page',['data'=>$data]);
+    }
+
+    function verify_online_register_member($id) {
+        $member = RegForm::find($id);
+
+        if(!$member){
+            return back()->with('error',"Member not found!");
+        }
+        
+        $member->status = 1;
+        $member->save();
+        SendVerificationEmail::dispatch($member);
+        return back()->with('success', 'Member verified successfully!');
     }
 
     
