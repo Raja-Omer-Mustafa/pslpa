@@ -94,6 +94,15 @@
                                     </div>
                                     <div class="mb-3">
                                         <label>
+                                            Affiliation *
+                                        </label>
+                                            <input value="{{ $data->affiliation }}" class="form-control" type="text" placeholder="" id="pwd" name="affiliation" type="text" data-fv-notempty="true" data-fv-notempty-message="The name is required">
+                                            @error('affiliation')
+                                            <div class="error mt-2" style="color:rgb(229, 62, 62);margin:-10px 0px -10px 0px;">{{ $message }}</div>
+                                           @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>
                                             Your Mobile# *
                                         </label>
                                             <input value="{{ $data->mobile_no }}" class="form-control" type="text" placeholder="Mobile" id="pwd" name="mobile_no" type="text" data-fv-notempty="true" data-fv-notempty-message="The name is required">

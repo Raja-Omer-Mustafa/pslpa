@@ -39,7 +39,7 @@
         <p style="text-align: center;"><strong>4. Two passport size pictures attested from the backside.</strong></p>
         <div class="medium-9 small-12 columns">
         @if(session('success'))
-        <div  class="alert alert-success m-4 border border-success p-5" role="alert" >
+        <div id="Alert" class="alert alert-success m-4 border border-success p-5" role="alert" >
             <h4 style="text-align: center;background-color: rgb(126, 188, 126);color:rgb(255, 255, 255);padding:5px 0px;width:100%;border-radius:4px;">{{ session('success') }}</h4>
         </div>
         <script>
@@ -164,6 +164,23 @@
                                     value="{{ old('year_qualification') }}"
                                 >
                                 @error('year_qualification')
+                                <div class="error" style="color:rgb(229, 62, 62);margin:-10px 0px -10px 0px;">{{ $message }}</div>
+                               @enderror
+                        </div>
+                        <div class="medium-6 small-12 columns">
+                            <label>
+                                Affiliation *
+                            </label>
+                                <input 
+                                    class="form-control" 
+                                    type="text"   
+                                    name="affiliation" 
+                                    type="text" 
+                                    data-fv-notempty="true" 
+                                    data-fv-notempty-message="The name is required"
+                                    value="{{ old('affiliation') }}"
+                                >
+                                @error('affiliation')
                                 <div class="error" style="color:rgb(229, 62, 62);margin:-10px 0px -10px 0px;">{{ $message }}</div>
                                @enderror
                         </div>

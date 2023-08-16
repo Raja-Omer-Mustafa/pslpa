@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reg_members', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('affiliation');
-            $table->string('city');
-            $table->tinyInteger('status')->comment('1:active,0:inactive');
-            $table->timestamps();
+        Schema::table('reg_form', function (Blueprint $table) {
+            $table->string('affiliation')->nullable();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reg_members');
+        Schema::table('reg_form', function (Blueprint $table) {
+            $table->string('affiliation')->nullable();
+        });
     }
 };

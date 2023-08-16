@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
-                         <h3 class="card-title">Online Store Visitors</h3>
+                         <h3 class="card-title">Online Registration</h3>
                         </div>
                     </div>
                     <div class="card-body table-responsive p-0">
@@ -44,12 +44,15 @@
                             <table class="table table-striped ">
                                 <thead>
                                   <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">#ID</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">CNIC No.</th>
                                     <th scope="col">City</th>
                                     <th scope="col">Mobile No.</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Verification No.</th>
+                                    <th scope="col"></th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
@@ -58,15 +61,18 @@
                                 <tbody>
                                     @foreach ($details as $item)
                                     <tr>
-                                        <th scope="row">1</th>
+                                        <th scope="row">{{ $item->id }}</th>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->cnic_no }}</td>
                                         <td>{{ $item->city }}</td>
                                         <td>{{ $item->mobile_no }}</td>
                                         <td>{{ $item->email_id }}</td>
-                                        <td class="px-0"><a role="button" href="{{ url('/admin/update_online_registration_member/'.$item->id) }}" class="btn btn-primary btn-sm">Update</a></td>
-                                        <td class="px-0"><a role="button" href="{{ url('/admin/delete_online_registration_member/'.$item->id) }}" class="btn btn-danger btn-sm ">Delete</a></td>
-                                        <td class="px-0"><a role="button" href="{{ url('/admin/online-registration_view_on_button/'.$item->id) }}" class="btn btn-info btn-sm">View</a></td>
+                                        <td>{{ $item->status }}</td>
+                                        <td>{{ $item->verification_code }}</td>
+                                        <td class="px-0"><a role="button" href="{{ url('/admin/verify_online_registration_member/'.$item->id) }}" class="btn  btn-success btn-sm">Verify</a></td>
+                                        <td class="px-0"><a role="button" href="{{ url('/admin/update_online_registration_member/'.$item->id) }}" class="btn ml-1 btn-primary btn-sm">Update</a></td>
+                                        <td class="px-0"><a role="button" href="{{ url('/admin/delete_online_registration_member/'.$item->id) }}" class="btn mx-1 btn-danger btn-sm ">Delete</a></td>
+                                        <td class="px-0"><a role="button" href="{{ url('/admin/online-registration_view_on_button/'.$item->id) }}" class="btn mr-1 btn-info btn-sm">View</a></td>
                                     </tr>
                                   @endforeach
                                 </tbody>

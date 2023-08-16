@@ -71,6 +71,10 @@
                                         <td>{{ $data['year_qualification'] }}</td>
                                     </tr>
                                     <tr>
+                                        <th scope="row">Affiliation</th>
+                                        <td>{{ $data['affiliation'] }}</td>
+                                    </tr>
+                                    <tr>
                                         <th scope="row">Mobile Number</th>
                                         <td>{{ $data['mobile_no'] }}</td>
                                     </tr>

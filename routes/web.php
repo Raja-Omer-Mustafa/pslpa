@@ -31,12 +31,13 @@ Route::get('/be-a-member', function () {
     return view('be_a_member');
 });
 
-Route::get('/country-directory', function () {
-    return view('country_directory');
-});
+// Route::get('/country-directory', function () {
+//     return view('country_directory');
+// });
 
 Route::post('/reg_form',[RegMemberController::class, 'store']);
-// Route::get('/send-mail', [RegMemberController::class, 'index']);
+// Route::get('/country-directory', [RegMemberController::class, 'RegForm_Data_Frontend']);
+Route::get('/search-country-directory', [RegMemberController::class, 'search_regForm_data'])->name('searchRegForm');
 
 
 // Admin side routes
@@ -69,10 +70,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/update_register_member/{id}',[RegMemberController::class,'update_member']);
     Route::get('/admin/delete_register_member/{id}',[RegMemberController::class,'delete_member']);
 
+    
     Route::get('/admin/update_online_registration_member/{id}',[RegMemberController::class, 'get_online_register_member']);
     Route::post('/admin/update_online_registration_member/{id}',[RegMemberController::class,'update_online_register_member']);
     Route::get('/admin/delete_online_registration_member/{id}',[RegMemberController::class,'delete_online_register_member']);
     Route::get('/admin/online-registration_view_on_button/{id}',[RegMemberController::class, 'data_for_online_registration_view_button']);
     Route::get('/admin/register_members_view_on_button/{id}',[RegMemberController::class, 'data_for_register_members_view_button']);
+    Route::get('/admin/verify_online_registration_member/{id}',[RegMemberController::class, 'verify_online_register_member'])->name('verify');
     
 });
