@@ -55,12 +55,14 @@
                             <table class="table table-striped ">
                                 <thead>
                                   <tr>
+                                    
                                     <th scope="col">ID</th>
+                                    <th scope="col">Registration Number</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Affiliation</th>
                                     <th scope="col">City</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Verification No.</th>
+                                    <th scope="col">Submission Date</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
@@ -69,12 +71,20 @@
                                 <tbody>
                                 @foreach ($data as $item)
                                   <tr>
+                                    
                                     <td>{{ $item->id }}</td>
+                                    <td>{{ $item->verification_code }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->affiliation }}</td>
                                     <td>{{ $item->city }}</td>
-                                    <td>{{ $item->status }}</td>
-                                    <td>{{ $item->verification_code }}</td>
+                                    <td>
+                                        @if($item->status == 1)
+                                        Active
+                                        @else
+                                        Inactive
+                                        @endif
+                                    </td>
+                                    <td>{{ $item->submission_date }}</td>
                                     <td>
                                       <a class="btn btn-primary btn-sm" href="{{ url('/admin/update_register_member/'.$item->id) }}" role="button">Update</a>
                                     </td>

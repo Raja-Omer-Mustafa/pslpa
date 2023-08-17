@@ -306,15 +306,6 @@
                         </div>
                         <div class="medium-6 small-12 columns">
                             <label>
-                                Date of Form Submission
-                                <input class="form-control" type="date" placeholder="" id="pwd" name="submission_date">
-                                @error('submission_date')
-                                <p class="error" style="color:rgb(229, 62, 62);margin:-10px 0px -10px 0px;">{{ $message }}</p>
-                               @enderror
-                            </label>
-                        </div>
-                        <div class="medium-6 small-12 columns">
-                            <label>
                                 Attested copy of CNIC or Passport (pdf,jpeg,png,jpeg,word)
                                 <input class="form-control" type="file" placeholder="" id="pwd" name="cnic_copy">
                                 @error('cnic_copy')
