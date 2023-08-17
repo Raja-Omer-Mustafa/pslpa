@@ -9,11 +9,16 @@ use Illuminate\Validation\Rule;
 use App\Jobs\SendVerificationEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 
 class RegMemberController extends Controller
 {
     function store(Request $request)
     {
+
+        [$keys] = Arr::divide(RegForm::FEE_PLANS);
+        [$cat_keys] = Arr::divide(RegForm::MEMBERSHIP_CATEGORY);
+        // dd($cat_keys);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'father_name' => 'required|string|max:255',
@@ -26,8 +31,15 @@ class RegMemberController extends Controller
             'residential_address' => 'required|string|max:1000',
             'official_address' => 'required|string|max:1000',
             'email_id' => 'required|email|max:255|unique:reg_form',
-            'mem_cetag' => 'required',
-            'fee_schedule' => 'required|max:255',
+            'mem_cetag' => [
+                'required',
+                Rule::in($cat_keys)
+            ],
+            'fee_schedule' => [
+                'required',
+                'max:255',
+                Rule::in($keys)
+            ],
             'submission_date' => 'required',
             'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'cnic_copy' => 'required|file|mimes:pdf,jpeg,png,jpeg,word|max:2048',
@@ -67,8 +79,8 @@ class RegMemberController extends Controller
         $regForm->residential_address = $validatedData['residential_address'];
         $regForm->official_address = $validatedData['official_address'];
         $regForm->email_id = $validatedData['email_id'];
-        $regForm->mem_cetag = $validatedData['mem_cetag'];
-        $regForm->fee_schedule = $validatedData['fee_schedule'];
+        $regForm->mem_cetag = RegForm::MEMBERSHIP_CATEGORY[$validatedData['mem_cetag']];
+        $regForm->fee_schedule = RegForm::FEE_PLANS[$validatedData['fee_schedule']];
         $regForm->submission_date = $validatedData['submission_date'];
         $regForm->photo = $photoPath;
         $regForm->cnic_copy = $cnicCopyPath;

@@ -278,9 +278,12 @@
                             <label>
                                 Select Membership Category *
                                 <select class="form-control" type="text" name="mem_cetag" id="pwd" data-fv-notempty="true" data-fv-notempty-message="This Field is required">
-                                    <option>-Select Category-</option>
-                                    <option>Member(MS/M.Phil/BS.SLP)</option>
-                                    <option>Associate Member(PGDSLP/T)</option>
+                                    <option value="">-Select Category-</option>
+                                    {{-- <option>Member(MS/M.Phil/BS.SLP)</option>
+                                    <option>Associate Member(PGDSLP/T)</option> --}}
+                                    @foreach (\App\Models\RegForm::MEMBERSHIP_CATEGORY as $id => $category)
+                                        <option value="{{ $id }}">{{ $category }}</option>
+                                    @endforeach
                                 </select>
                                 @error('mem_cetag')
                                 <p class="error" style="color:rgb(229, 62, 62);margin:-10px 0px -10px 0px;">{{ $message }}</p>
@@ -291,11 +294,10 @@
                             <label>
                                 Select Fee Schedule
                                 <select class="form-control" type="text" name="fee_schedule" id="pwd" data-fv-notempty="true" data-fv-notempty-message="This Field is required">
-                                    <option>-Select Fee Schedule-</option>
-                                    <option>PKR.2000/2years Member</option>
-                                    <option>PKR.2500/2years Associate Member</option>
-                                    <option>PKR.10000/5years Member</option>
-                                    <option>PKR.12500/5years Associate Member</option>
+                                    <option value="">-Select Fee Schedule-</option>
+                                    @foreach (\App\Models\RegForm::FEE_PLANS as $id => $title)
+                                        <option value="{{ $id }}">{{ $title }}</option>
+                                    @endforeach
                                 </select>
                                 @error('fee_schedule')
                                  <p class="error" style="color:rgb(229, 62, 62);margin:-10px 0px -10px 0px;">{{ $message }}</p>
