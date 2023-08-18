@@ -18,7 +18,6 @@ class RegMemberController extends Controller
 
         [$keys] = Arr::divide(RegForm::FEE_PLANS);
         [$cat_keys] = Arr::divide(RegForm::MEMBERSHIP_CATEGORY);
-        // dd($cat_keys);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'father_name' => 'required|string|max:255',
@@ -40,7 +39,6 @@ class RegMemberController extends Controller
                 'max:255',
                 Rule::in($keys)
             ],
-            'submission_date' => 'required',
             'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'cnic_copy' => 'required|file|mimes:pdf,jpeg,png,jpeg,word|max:2048',
             'doc' => 'required|file|mimes:pdf,doc,docx,|max:2048',
@@ -81,7 +79,6 @@ class RegMemberController extends Controller
         $regForm->email_id = $validatedData['email_id'];
         $regForm->mem_cetag = RegForm::MEMBERSHIP_CATEGORY[$validatedData['mem_cetag']];
         $regForm->fee_schedule = RegForm::FEE_PLANS[$validatedData['fee_schedule']];
-        $regForm->submission_date = $validatedData['submission_date'];
         $regForm->photo = $photoPath;
         $regForm->cnic_copy = $cnicCopyPath;
         $regForm->doc = $docPath;

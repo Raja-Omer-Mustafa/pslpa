@@ -44,14 +44,17 @@
                             <table class="table table-striped ">
                                 <thead>
                                   <tr>
-                                    <th scope="col">#ID</th>
+                                    
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Registration Number</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">CNIC No.</th>
                                     <th scope="col">City</th>
                                     <th scope="col">Mobile No.</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Verification No.</th>
+                                    <th scope="col">Submission Date</th>
+                                    <th scope="col"></th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
@@ -61,14 +64,23 @@
                                 <tbody>
                                     @foreach ($details as $item)
                                     <tr>
-                                        <th scope="row">{{ $item->id }}</th>
+                                       
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->verification_code }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->cnic_no }}</td>
                                         <td>{{ $item->city }}</td>
                                         <td>{{ $item->mobile_no }}</td>
                                         <td>{{ $item->email_id }}</td>
-                                        <td>{{ $item->status }}</td>
-                                        <td>{{ $item->verification_code }}</td>
+                                        <td>
+                                            @if($item->status == 1)
+                                            Active
+                                            @else
+                                            Inactive
+                                            @endif
+                                        </td>
+                                        <td>{{ $item->submission_date }}</td>
+                                        <td></td>
                                         <td class="px-0"><a role="button" href="{{ url('/admin/verify_online_registration_member/'.$item->id) }}" class="btn  btn-success btn-sm">Verify</a></td>
                                         <td class="px-0"><a role="button" href="{{ url('/admin/update_online_registration_member/'.$item->id) }}" class="btn ml-1 btn-primary btn-sm">Update</a></td>
                                         <td class="px-0"><a role="button" href="{{ url('/admin/delete_online_registration_member/'.$item->id) }}" class="btn mx-1 btn-danger btn-sm ">Delete</a></td>

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RegForm extends Model
 {
@@ -42,5 +43,12 @@ class RegForm extends Model
         'fee',
         'affiliation',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($regForm) {
+            $regForm->submission_date = Carbon::now()->toDateString();
+        });
+    }
 
 }

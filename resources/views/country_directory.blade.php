@@ -20,37 +20,43 @@
     <table class="table table-striped ">
         <thead>
             <tr>
-                <th>#ID</th>
+                <th>#</th>
+                <th>Registration Number</th>
                 <th>Name</th>
+                <th>Email</th>
+                <th>Mobile Phone</th>
+                <th>Office Address</th>
                 <th>Affiliation</th>
                 <th>City</th>
                 <th>status</th>
-                <th>Verification No.</th>
             </tr>
         </thead>
-            @foreach ($details as $item)
-                <tr>
-                    <td>{{ $item->id }}</td>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ $item->affiliation }} </td>
-                    <td>{{ $item->city }}</td>
-                    <td>
-                        @if($item->status == 1)
-                        Active
-                        @else
-                        Inactive
-                        @endif
-                    </td>
-                    <td>{{ $item->verification_code }}</td>
-                </tr>
-            @endforeach
-        </table>
-         @else
-           <p style="margin:0 0 27vh 4%;"> no search results found</p>
-        @endif
+        @foreach ($details as $item)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $item->verification_code }}</td>
+            <td>{{ $item->name }}</td>
+            <td>{{ $item->email_id }}</td>
+            <td>{{ $item->mobile_no }}</td>
+            <td>{{ $item->official_address }}</td>
+            <td>{{ $item->affiliation }} </td>
+            <td>{{ $item->city }}</td>
+            <td>
+                @if($item->status == 1)
+                Active
+                @else
+                Inactive
+                @endif
+            </td>
+        </tr>
+        @endforeach
+    </table>
+    @else
+    <p style="margin:0 0 27vh 4%;"> no search results found</p>
+    @endif
     <center class="mt-4 ml-3">
         {{ $details->links() }}
     </center>
 </div>
-    
+
 @endsection
