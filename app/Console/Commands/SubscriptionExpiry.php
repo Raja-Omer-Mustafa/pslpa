@@ -2,11 +2,13 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SubscriptionExpired;
+
 use App\Models\RegForm;
 use Illuminate\Support\Env;
+use Illuminate\Support\Carbon;
+use Illuminate\Console\Command;
+use App\Mail\SubscriptionExpired;
+use Illuminate\Support\Facades\Mail;
 
 class SubscriptionExpiry extends Command
 {
@@ -30,8 +32,8 @@ class SubscriptionExpiry extends Command
      */
     public function handle()
     {
-        $expirationDate = now()->subDays(env('SUBSCRIPTION_DAYS')); // Calculate expiration date 30 days ago
-        $expiredUsers = RegForm::where('updated_at', '<', $expirationDate)->get();
+        $today = Carbon::now()->toDateString();
+        $expiredUsers = RegForm::whereDate('expire_at', '=', $today)->get();
         
         foreach ($expiredUsers as $user) {
             $user->status = 0;
