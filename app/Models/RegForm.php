@@ -42,6 +42,13 @@ class RegForm extends Model
         'doc',
         'fee',
         'affiliation',
+        'verify_at',
+        'expire_at',
+    ];
+
+    protected $casts = [
+        'verify_at' => 'datetime',
+        'expire_at' => 'datetime',
     ];
 
     protected static function booted()
