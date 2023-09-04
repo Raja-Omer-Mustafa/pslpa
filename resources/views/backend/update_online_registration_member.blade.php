@@ -58,6 +58,15 @@
                                     </div>
                                     <div class="mb-3">
                                         <label>
+                                            Registration *
+                                        </label>
+                                            <input value="{{ $data->verification_code }}" class="form-control" type="text" placeholder="" id="registration_no" name="registration_no" type="text" data-fv-notempty="true" data-fv-notempty-message="The name is required">
+                                            @error('cnic_no')
+                                            <div class="error mt-2" style="color:rgb(229, 62, 62);margin:-10px 0px -10px 0px;">{{ $message }}</div>
+                                           @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>
                                             CNIC# *
                                         </label>
                                             <input value="{{ $data->cnic_no }}" class="form-control" type="text" placeholder="CNIC" id="cnic" name="cnic_no" type="text" data-fv-notempty="true" data-fv-notempty-message="The name is required">
@@ -188,7 +197,7 @@
                                         <label>
                                             Attested copy of CNIC or Passport (pdf,jpeg,png,jpeg,word)
                                         </label>
-                                            <input value="{{ $data->cnic_copy }}" class="form-control" type="file" placeholder="" id="pwd" name="cnic_copy">
+                                            <input value="{{ Storage::url('documents/' . $data->cnic_copy)  }}" class="form-control" type="file" placeholder="" id="pwd" name="cnic_copy">
                                             @error('cnic_copy')
                                             <p class="error mt-2" style="color:rgb(229, 62, 62);margin:-10px 0px 0px 0px;">{{ $message }}</p>
                                            @enderror
@@ -197,7 +206,7 @@
                                         <label>
                                             Attested Passport Size Picture (jpg,jpeg,png)
                                         </label>
-                                            <input value="{{ $data->photo }}" class="form-control" type="file" placeholder="" id="pwd" name="photo">
+                                            <input value="{{ $data->photo }}" class="form-control" type="file" id="pwd" name="photo">
                                             @error('photo')
                                             <div class="error mt-2" style="color:rgb(229, 62, 62);margin:-10px 0px -10px 0px;">{{ $message }}</div>
                                            @enderror
