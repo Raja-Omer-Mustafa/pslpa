@@ -50,8 +50,8 @@
                 Inactive
                 @endif
             </td>
-            <td>{{ $item->verify_at->format('Y-m-d')  }}</td>
-            <td>{{ $item->expire_at->format('Y-m-d') }}</td>
+            <td>{{ $item->verify_at?->format('Y-m-d')  }}</td>
+            <td>{{ $item->expire_at?->format('Y-m-d') }}</td>
         </tr>
         @endforeach
     </table>
