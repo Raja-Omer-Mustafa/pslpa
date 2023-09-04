@@ -186,6 +186,24 @@
                                     </div>
                                     <div class="mb-3">
                                         <label>
+                                            Verify At
+                                        </label>
+                                            <input value="{{ $data->verify_at?->format('Y-m-d') }}" class="form-control" type="date" placeholder="" name="verify_at">
+                                            @error('verify_at')
+                                            <p class="error mt-2" style="color:rgb(229, 62, 62);margin:-10px 0px -10px 0px;">{{ $message }}</p>
+                                           @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>
+                                            Expire At
+                                        </label>
+                                            <input value="{{ $data->expire_at?->format('Y-m-d') }}" class="form-control" type="date" placeholder="" name="expire_at">
+                                            @error('expire_at')
+                                            <p class="error mt-2" style="color:rgb(229, 62, 62);margin:-10px 0px -10px 0px;">{{ $message }}</p>
+                                           @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>
                                             Attested copy of CNIC or Passport (pdf,jpeg,png,jpeg,word)
                                         </label>
                                             <input value="{{ $data->cnic_copy }}" class="form-control" type="file" placeholder="" id="pwd" name="cnic_copy">

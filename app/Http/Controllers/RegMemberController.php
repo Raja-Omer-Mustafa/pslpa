@@ -209,6 +209,7 @@ class RegMemberController extends Controller
     public function update_online_register_member(Request $request, $id)
     {
         $member = RegForm::find($id);
+        $member->fill($request->all());
         
         if (!$member) {
             return redirect()->back()->with('error', 'Record not found.');
@@ -241,10 +242,10 @@ class RegMemberController extends Controller
             'mem_cetag' => 'required',
             'fee_schedule' => 'required|max:255',
             'submission_date' => 'required',
-            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'cnic_copy' => 'required|file|mimes:pdf,jpeg,png,jpeg,word|max:2048',
-            'doc' => 'required|file|mimes:pdf,doc,docx,|max:2048',
-            'fee' => 'required|mimes:pdf,doc,docx,jpeg,png,jpg|max:2048',
+            'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'cnic_copy' => 'file|mimes:pdf,jpeg,png,jpeg,word|max:2048',
+            'doc' => 'file|mimes:pdf,doc,docx,|max:2048',
+            'fee' => 'mimes:pdf,doc,docx,jpeg,png,jpg|max:2048',
             'affiliation' => 'required|string|max:255',
         ]);
 
@@ -303,10 +304,6 @@ class RegMemberController extends Controller
         $member->fee_schedule = $validatedData['fee_schedule'];
         $member->submission_date = $validatedData['submission_date'];
         $member->affiliation = $validatedData['affiliation'];
-        $member->photo = $photoPath;
-        $member->cnic_copy = $cnicCopyPath;
-        $member->doc = $docPath;
-        $member->fee = $feePath;
         $member->save();
         return back()->with('success', 'Member updated successfully!');
     }
@@ -339,6 +336,7 @@ class RegMemberController extends Controller
         }
         
         $member->status = 1;
+        $member->verify_at = now();
         $member->save();
         SendVerificationEmail::dispatch($member);
         return back()->with('success', 'Member verified successfully!');
