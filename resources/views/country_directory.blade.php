@@ -29,6 +29,8 @@
                 <th>Affiliation</th>
                 <th>City</th>
                 <th>status</th>
+                <th>Verified At</th>
+                <th>Expire At</th>
             </tr>
         </thead>
         @foreach ($details as $item)
@@ -48,6 +50,8 @@
                 Inactive
                 @endif
             </td>
+            <td>{{ $item->verify_at }}</td>
+            <td>{{ $item->expire_at }}</td>
         </tr>
         @endforeach
     </table>

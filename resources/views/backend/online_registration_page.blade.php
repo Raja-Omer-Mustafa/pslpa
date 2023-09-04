@@ -46,7 +46,7 @@
                                   <tr>
                                     
                                     <th scope="col">ID</th>
-                                    <th scope="col">Registration Number</th>
+                                    <th scope="col">Application Number</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">CNIC No.</th>
                                     <th scope="col">City</th>
