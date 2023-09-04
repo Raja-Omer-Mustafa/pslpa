@@ -29,8 +29,8 @@
                 <th>Affiliation</th>
                 <th>City</th>
                 <th>status</th>
-                <th>Verified At</th>
-                <th>Expire At</th>
+                <th>Registration Start Date</th>
+                <th>Registration End Date</th>
             </tr>
         </thead>
         @foreach ($details as $item)

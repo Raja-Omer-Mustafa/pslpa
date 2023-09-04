@@ -20,6 +20,11 @@
                 {{-- <a class="btn btn-success mt-2" href="{{ url('/admin/online_reg_form') }}" role="button">Create Reg Form</a> --}}
                 <td><a role="button" href="{{ url('/admin/update_online_registration_member/'.$data['id'])  }}" class="btn btn-primary ">Update</a></td>
                 <td><a role="button" href="{{ url('/admin/delete_online_registration_member/'.$data['id'])  }}" class="btn btn-danger ">Delete</a></td>
+                @if($data['status'] == 1)
+                <td class="px-0"><a role="button" href="{{ url('/admin/unverify_online_registration_member/'.$data['id']) }}" class="btn  btn-warning btn">Unverify</a></td>
+               @else
+                <td class="px-0"><a role="button" href="{{ url('/admin/verify_online_registration_member/'.$data['id']) }}" class="btn btn-success btn">Verify</a></td>
+               @endif
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">

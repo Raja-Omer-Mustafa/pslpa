@@ -66,7 +66,7 @@
                                     <tr>
                                        
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->verification_code }}</td>
+                                        <td>{{"RSLP/T:" . $item->verification_code . "/" . (new \Carbon\Carbon($item->submission_date))->year }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->cnic_no }}</td>
                                         <td>{{ $item->city }}</td>

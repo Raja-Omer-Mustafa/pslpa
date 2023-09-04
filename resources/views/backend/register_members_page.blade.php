@@ -90,11 +90,12 @@
                                         @else
                                          <td class="px-0"><a role="button" href="{{ url('/admin/verify_online_registration_member/'.$item->id) }}" class="btn mx-1 btn-success btn-sm">Verify</a></td>
                                         @endif
-                                    <td>
+                                    {{-- <td>
                                       <a class="btn btn-primary btn-sm" href="{{ url('/admin/update_register_member/'.$item->id) }}" role="button">Update</a>
-                                    </td>
+                                    </td> --}}
                                     <td><a class="btn btn-danger btn-sm" href="{{ url('/admin/delete_register_member/'.$item->id) }}" role="button">Delete</a></td>
-                                    <td class="px-0"><a role="button" href="{{ url('/admin/register_members_view_on_button/'.$item->id) }}" class="btn btn-info btn-sm">View</a></td>  
+                                    {{-- <td class="px-0"><a role="button" href="{{ url('/admin/register_members_view_on_button/'.$item->id) }}" class="btn btn-info btn-sm">View</a></td>   --}}
+                                    <td></td>
                                 </tr>
                                 @endforeach
                                 </tbody>
