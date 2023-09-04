@@ -85,6 +85,11 @@
                                         @endif
                                     </td>
                                     <td>{{ $item->submission_date }}</td>
+                                    @if($item->status == 1)
+                                         <td class="px-0"><a role="button" href="{{ url('/admin/unverify_online_registration_member/'.$item->id) }}" class="btn  mx-1  btn-warning btn-sm">Unverify</a></td>
+                                        @else
+                                         <td class="px-0"><a role="button" href="{{ url('/admin/verify_online_registration_member/'.$item->id) }}" class="btn mx-1 btn-success btn-sm">Verify</a></td>
+                                        @endif
                                     <td>
                                       <a class="btn btn-primary btn-sm" href="{{ url('/admin/update_register_member/'.$item->id) }}" role="button">Update</a>
                                     </td>

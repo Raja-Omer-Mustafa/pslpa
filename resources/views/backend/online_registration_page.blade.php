@@ -81,8 +81,12 @@
                                         </td>
                                         <td>{{ $item->submission_date }}</td>
                                         <td></td>
-                                        <td class="px-0"><a role="button" href="{{ url('/admin/verify_online_registration_member/'.$item->id) }}" class="btn  btn-success btn-sm">Verify</a></td>
-                                        <td class="px-0"><a role="button" href="{{ url('/admin/update_online_registration_member/'.$item->id) }}" class="btn ml-1 btn-primary btn-sm">Update</a></td>
+                                        @if($item->status == 1)
+                                         <td class="px-0"><a role="button" href="{{ url('/admin/unverify_online_registration_member/'.$item->id) }}" class="btn  mx-1  btn-warning btn-sm">Unverify</a></td>
+                                        @else
+                                         <td class="px-0"><a role="button" href="{{ url('/admin/verify_online_registration_member/'.$item->id) }}" class="btn mx-1 btn-success btn-sm">Verify</a></td>
+                                        @endif
+                                        <td class="px-0"><a role="button" href="{{ url('/admin/update_online_registration_member/'.$item->id) }}" class="btn mx-1 btn-primary btn-sm">Update</a></td>
                                         <td class="px-0"><a role="button" href="{{ url('/admin/delete_online_registration_member/'.$item->id) }}" class="btn mx-1 btn-danger btn-sm ">Delete</a></td>
                                         <td class="px-0"><a role="button" href="{{ url('/admin/online-registration_view_on_button/'.$item->id) }}" class="btn mr-1 btn-info btn-sm">View</a></td>
                                     </tr>

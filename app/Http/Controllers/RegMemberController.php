@@ -102,12 +102,12 @@ class RegMemberController extends Controller
     }
 
     function members_data(){
-        $data = RegForm::where('status',1)->orderBy('created_at','desc')->paginate(10);
+        $data = RegForm::orderBy('created_at','desc')->paginate(10);
         return view('backend.register_members_page', compact('data'));
     }
 
     function reg_form_data(){
-        $details = RegForm::where('status',0)->orderBy('created_at', 'desc')->paginate(15);
+        $details = RegForm::orderBy('created_at', 'desc')->paginate(10);
         return view('backend.online_registration_page', compact('details'));
     }
 
@@ -247,6 +247,7 @@ class RegMemberController extends Controller
             'doc' => 'file|mimes:pdf,doc,docx,|max:2048',
             'fee' => 'mimes:pdf,doc,docx,jpeg,png,jpg|max:2048',
             'affiliation' => 'required|string|max:255',
+            'registration_no'=> 'required'
         ]);
 
         if ($request->hasFile('photo')) {
@@ -304,6 +305,7 @@ class RegMemberController extends Controller
         $member->fee_schedule = $validatedData['fee_schedule'];
         $member->submission_date = $validatedData['submission_date'];
         $member->affiliation = $validatedData['affiliation'];
+        $member->verification_code = $validatedData['registration_no'];
         $member->save();
         return back()->with('success', 'Member updated successfully!');
     }
@@ -340,6 +342,30 @@ class RegMemberController extends Controller
         $member->save();
         SendVerificationEmail::dispatch($member);
         return back()->with('success', 'Member verified successfully!');
+    }
+
+    function unverifyOnlineRegisterMember($id) {
+        $member = RegForm::find($id);
+        if(!$member){
+            return back()->with('error',"Member not found!");
+        }
+        
+        $member->status = 0;
+        $member->save();
+        SendVerificationEmail::dispatch($member);
+        return back()->with('success', 'Member Unverified Successfully!');
+    }
+
+    function unverifyRegisterMember($id) {
+        $member = RegForm::find($id);
+        if(!$member){
+            return back()->with('error',"Member not found!");
+        }
+        
+        $member->status = 0;
+        $member->save();
+        SendVerificationEmail::dispatch($member);
+        return back()->with('success', 'Member Unverified Successfully!');
     }
 
     
