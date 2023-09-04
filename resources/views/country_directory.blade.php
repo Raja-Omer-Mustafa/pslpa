@@ -36,7 +36,7 @@
         @foreach ($details as $item)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $item->verification_code }}</td>
+            <td>{{"RSLP/T:" . $item->verification_code . "/" . (new \Carbon\Carbon($item->submission_date))->year }}</td>
             <td>{{ $item->name }}</td>
             <td>{{ $item->email_id }}</td>
             <td>{{ $item->mobile_no }}</td>
